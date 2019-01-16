@@ -30,3 +30,16 @@
 *.exe
 *.out
 *.app
+.vs/MiddleROV2OnBoard/v15/.suo
+MiddleROV2OnBoard/Debug/board.buildinfo
+MiddleROV2OnBoard/Debug/MiddleROV2OnBoard.elf
+MiddleROV2OnBoard/Debug/MiddleROV2OnBoard.hex
+MiddleROV2OnBoard/Debug/MiddleROV2OnBoard.ino.elf
+MiddleROV2OnBoard/Debug/MiddleROV2OnBoard.ino.hex
+MiddleROV2OnBoard/Debug/MiddleROV2OnBoard.ino.with_bootloader.hex
+MiddleROV2OnBoard/Debug/MiddleROV2OnBoard.with_bootloader.hex
+MiddleROV2OnBoard/Release/board.buildinfo
+MiddleROV2OnBoard/Release/MiddleROV2OnBoard.elf
+MiddleROV2OnBoard/Release/MiddleROV2OnBoard.hex
+MiddleROV2OnBoard/Release/MiddleROV2OnBoard.ino.elf
+MiddleROV2OnBoard/Release/MiddleROV2OnBoard.ino.hex
