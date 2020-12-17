@@ -4,7 +4,6 @@
  Author:    Zinkov
 */
 
-// the setup function runs once when you press reset or power the board
 #include <Arduino.h>
 #include "BrushlessMotor.h"
 #include "RotaryCamera.h"
@@ -17,6 +16,9 @@
 
 #define MANIPULATOR_PIN 7
 #define CAMERA_PIN 8
+
+#define CUSTOM1_PIN1 8
+#define CUSTOM1_PIN2 9
 
 BrushlessMotor leftMotor(LEFT_MOTOR_PIN);
 BrushlessMotor rightMotor(RIGHT_MOTOR_PIN);
@@ -35,33 +37,50 @@ void setup() {
     verticalMotor.init();
     camera.init();
     manipulator.init();
-    //(2000);
+
+    pinMode(CUSTOM1_PIN1, OUTPUT);
+	pinMode(CUSTOM1_PIN2, OUTPUT);
 
     digitalWrite(RS485_CONTROL_PIN, LOW);
+}
+
+void custom_button1(int8_t data) {
+	if (data > 0) {
+		digitalWrite(CUSTOM_PIN1, HIGH);
+		digitalWrite(CUSTOM_PIN2, LOW);
+	} else if (data < 0) {
+		digitalWrite(CUSTOM_PIN1, LOW);
+		digitalWrite(CUSTOM_PIN2, HIGH);
+	} else {
+		digitalWrite(CUSTOM_PIN1, LOW);
+		digitalWrite(CUSTOM_PIN2, LOW);
+	}
 }
 
 #define START_BYTE 0xFE
 #define END_BYTE 0xEF
 
-#define DEBUG
+// #define DEBUG
 
 void loop() {
     //Serial.println(Serial1.available());
-    if (Serial1.available() > 6) {
-        uint8_t buffer[7] = {};
-        Serial1.readBytes(buffer, 7);
-        if (buffer[0] == START_BYTE && buffer[6] == END_BYTE) {
+    if (Serial1.available() > 7) {
+        uint8_t buffer[8] = {};
+        Serial1.readBytes(buffer, 8);
+        if (buffer[0] == START_BYTE && buffer[7] == END_BYTE) {
             leftMotor.set_power(buffer[1]);
             rightMotor.set_power(buffer[2]);
             verticalMotor.set_power(buffer[3]);
             camera.rotate(buffer[4]);
             manipulator.rotate(buffer[5]);
+            custom_button(buffer[6]);
 #ifdef DEBUG
             Serial.print((int8_t)buffer[1]); Serial.print(" ");
             Serial.print((int8_t)buffer[2]); Serial.print(" ");
             Serial.print((int8_t)buffer[3]); Serial.print(" ");
             Serial.print((int8_t)buffer[4]); Serial.print(" ");
-            Serial.println((int8_t)buffer[5]);
+            Serial.print((int8_t)buffer[5]); Serial.print(" ");
+            Serial.println((int8_t)buffer[6]);
 #endif // DEBUG
         }
         else {
