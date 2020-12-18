@@ -46,14 +46,14 @@ void setup() {
 
 void custom_button1(int8_t data) {
 	if (data > 0) {
-		digitalWrite(CUSTOM_PIN1, HIGH);
-		digitalWrite(CUSTOM_PIN2, LOW);
+		digitalWrite(CUSTOM1_PIN1, HIGH);
+		digitalWrite(CUSTOM1_PIN2, LOW);
 	} else if (data < 0) {
-		digitalWrite(CUSTOM_PIN1, LOW);
-		digitalWrite(CUSTOM_PIN2, HIGH);
+		digitalWrite(CUSTOM1_PIN1, LOW);
+		digitalWrite(CUSTOM1_PIN2, HIGH);
 	} else {
-		digitalWrite(CUSTOM_PIN1, LOW);
-		digitalWrite(CUSTOM_PIN2, LOW);
+		digitalWrite(CUSTOM1_PIN1, LOW);
+		digitalWrite(CUSTOM1_PIN2, LOW);
 	}
 }
 
@@ -73,7 +73,7 @@ void loop() {
             verticalMotor.set_power(buffer[3]);
             camera.rotate(buffer[4]);
             manipulator.rotate(buffer[5]);
-            custom_button(buffer[6]);
+            custom_button1(buffer[6]);
 #ifdef DEBUG
             Serial.print((int8_t)buffer[1]); Serial.print(" ");
             Serial.print((int8_t)buffer[2]); Serial.print(" ");
