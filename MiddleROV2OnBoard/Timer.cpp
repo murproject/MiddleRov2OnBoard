@@ -3,26 +3,26 @@
 
 Timer::Timer()
 {
-    m_isStarted = false;
+	m_isStarted = false;
 }
 
 void Timer::start()
 {
-    m_isStarted = true;
-    m_start = millis();
+	m_isStarted = true;
+	m_start = millis();
 }
 
 long Timer::elapsed()
 {
-    return m_isStarted ? millis() - m_start : 0;
+	return m_isStarted ? millis() - m_start : 0;
 }
 
 bool Timer::is_started()
 {
-    return m_isStarted;
+	return m_isStarted;
 }
 
 void Timer::stop()
 {
-    m_isStarted = false;
+	m_isStarted = false;
 }

@@ -5,10 +5,10 @@
 
 class BrushlessMotor :public Motor {
 public:
-    BrushlessMotor(uint8_t pin);
-    void init();
-    void set_power(int8_t power);
+	BrushlessMotor(uint8_t pin);
+	void init();
+	void set_power(int8_t power);
 private:
-    uint8_t m_pin;
-    Servo m_driver;
+	uint8_t m_pin;
+	Servo m_driver;
 };
