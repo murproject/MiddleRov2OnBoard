@@ -1,9 +1,18 @@
 # Прошивка для аппарата MiddleROV
 
-![MiddleROV](https://robocenter.net/media/images/1_ZcZXJNe.max-1000x500.jpg)
+[Подробнее о наборе MiddleROV.](https://robocenter.net/goods/kit/middlerov/)
 
 Данная прошивка предназначена для **платы, находящейся внутри аппарата MiddleROV**. Сам же аппарат подключается к чёрному пульту управления.
 
-> Если нужна прошивка **для пульта**, то вам нужен [MiddleROV2Surface](https://github.com/murproject/MiddleROV2Surface)
+> Если нужна прошивка **для пульта**, то вам нужен репозиторий [MiddleROV2Surface](https://github.com/murproject/MiddleROV2Surface)
 
 Для данной прошивки нет необходимости в установке дополнительных библиотек.
+
+# Версии прошивок
+
+В зависимости от версии вашего набора, вам могут понадобиться разные версии прошивок.
+
+- Для наборов, приобритённых с лета 2021 года – используйте код из текущей ветки (`master`).
+- Для более старых наборов – [используйте архивные версии кода](https://github.com/murproject/MiddleRov2OnBoard/tree/135529f89ce088fa655fe7f51d9a69efbd4341b7)
+
+![Фотография набора MiddleROV](https://robocenter.net/media/images/1_ZcZXJNe.max-1000x500.jpg)
