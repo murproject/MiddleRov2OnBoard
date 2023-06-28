@@ -25,7 +25,7 @@ BrushlessMotor rightMotor(RIGHT_MOTOR_PIN);
 BrushlessMotor verticalMotor(VERTICAL_MOTOR_PIN);
 
 RotaryCamera camera(CAMERA_PIN);
-RotaryCamera manipulator(MANIPULATOR_PIN);
+BrushlessMotor manipulator(MANIPULATOR_PIN);
 
 void setup() {
     Serial.begin(115200);
@@ -82,7 +82,7 @@ void loop() {
             rightMotor.set_power(-buffer[2]);
             verticalMotor.set_power(buffer[3]);
             camera.rotate(buffer[4] * 3);
-            manipulator.rotate(buffer[5] * 3);
+            manipulator.set_power(buffer[5] * 100);
             motor_button(buffer[6]);
 #ifdef DEBUG
             Serial.print((int8_t)buffer[1]); Serial.print(" ");
