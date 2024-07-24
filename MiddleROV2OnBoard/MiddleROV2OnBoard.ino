@@ -6,6 +6,7 @@
 
 #include <Arduino.h>
 #include "BrushlessMotor.h"
+#include "BrushMotor.h"
 #include "RotaryCamera.h"
 
 #define RS485_CONTROL_PIN 2
@@ -27,6 +28,8 @@ BrushlessMotor verticalMotor(VERTICAL_MOTOR_PIN);
 RotaryCamera camera(CAMERA_PIN);
 BrushlessMotor manipulator(MANIPULATOR_PIN);
 
+BrushMotor motor_button(MOTOR_PIN1, MOTOR_PIN2);
+
 void setup() {
     Serial.begin(115200);
     Serial1.begin(115200);
@@ -45,25 +48,24 @@ void setup() {
     Serial.println("Entering loop");
 }
 
-void motor_button(int8_t data) {
-  if (data > 0) {
-    digitalWrite(MOTOR_PIN1, HIGH);
-    digitalWrite(MOTOR_PIN2, LOW);
-  } else if (data < 0) {
-    digitalWrite(MOTOR_PIN1, LOW);
-    digitalWrite(MOTOR_PIN2, HIGH);
-  } else {
-    digitalWrite(MOTOR_PIN1, LOW);
-    digitalWrite(MOTOR_PIN2, LOW);
-  }
-}
-
 #define START_BYTE 0xFE
 #define END_BYTE 0xEF
 
 #define DEBUG
+// #define SERIAL_DEBUG
 
 void loop() {
+    #ifdef SERIAL_DEBUG
+        pinMode(LED_BUILTIN, OUTPUT);
+        digitalWrite(RS485_CONTROL_PIN, HIGH);
+        Serial1.println("SERIAL DEBUG");
+        digitalWrite(LED_BUILTIN, HIGH);
+        delay(50);
+        digitalWrite(LED_BUILTIN, LOW);
+        delay(50);
+        return;
+    #endif
+  
     if (Serial1.available()) {
     digitalWrite(LED_BUILTIN, HIGH);
         uint8_t first_received_byte = 0;
@@ -83,7 +85,7 @@ void loop() {
             verticalMotor.set_power(buffer[3]);
             camera.rotate(buffer[4] * 3);
             manipulator.set_power(buffer[5] * 100);
-            motor_button(buffer[6]);
+            motor_button.set_power(buffer[6] * -100);
 #ifdef DEBUG
             Serial.print((int8_t)buffer[1]); Serial.print(" ");
             Serial.print((int8_t)buffer[2]); Serial.print(" ");
